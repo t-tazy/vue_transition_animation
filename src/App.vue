@@ -1,6 +1,14 @@
 <template>
   <div class="main">
     <button @click="show = !show">切り替え</button>
+    <br><br>
+    <button @click="add">追加</button>
+    <ul style="width: 200px; margin: auto;">
+      <transition-group>
+        <li style="cursor: pointer;" @click="remove(index)" v-for="(number, index) in numbers" :key="number">{{ number }}</li>
+      </transition-group>
+    </ul>
+    <br>
     <transition name="fade">
       <p v-if="show">hello</p>
     </transition>
@@ -43,6 +51,8 @@ import ComponentB from "./components/ComponentB.vue";
 export default {
   data() {
     return {
+      numbers: [0, 1, 2],
+      nextNumber: 3,
       show: true,
       myComponent: "ComponentA"
     };
@@ -52,6 +62,16 @@ export default {
     ComponentB
   },
   methods: {
+    randomIndex() {
+      return Math.floor(Math.random() * this.numbers.length);
+    },
+    add() {
+      this.numbers.splice(this.randomIndex(), 0, this.nextNumber);
+      this.nextNumber += 1;
+    },
+    remove(index) {
+      this.numbers.splice(index, 1);
+    },
     beforeEnter(el) {
       /* 現れる前 */
       el.style.transform = 'scale(0)'
