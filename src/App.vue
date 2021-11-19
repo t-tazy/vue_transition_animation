@@ -7,6 +7,10 @@
     <transition name="slide" type="animation">
       <p v-if="show">bye</p>
     </transition>
+    <transition name="fade" mode="out-in">
+      <p v-if="show" key="bye">さよなら</p>
+      <p v-if="!show" key="hello">こんにちは</p>
+    </transition>
   </div>
 </template>
 
